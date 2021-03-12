@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+FROM java
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+ADD bootstrap_app.sh /
+ADD useradd.sh /
+
+RUN chmod +x /bootstrap_app.sh
+RUN chmod +x /useradd.sh
+
+RUN /useradd.sh
+RUN /bootstrap_app.sh
+
+WORKDIR /home/demo2/spring-petclinic
+
+CMD ["java", "-Dspring.profiles.active=mysql", "-jar", "/home/demo2/spring-petclinic/target/spring-petclinic-2.4.2.jar"]
