@@ -1,0 +1,37 @@
+version: "3.3"
+services:
+
+  db:
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile_db
+    image: mysql:petclinic-db
+    environment:
+      MYSQL_DATABASE: 'demo2'
+      MYSQL_USER: 'demo2'
+      MYSQL_PASSWORD: 'B*T_ity6'
+      MYSQL_ROOT_PASSWORD: 'B*T_ity6'
+    ports:
+    - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - "/home/mirjalalcloud/db:/var/lib/mysql"
+    command: --default-authentication-plugin=mysql_native_password
+
+  app:
+    build:
+      context: ./
+      dockerfile: Dockerfile_app
+    image: java:petclinic-app
+    environment:
+      MYSQL_PASS: B*T_ity6
+      MYSQL_URL: jdbc:mysql://172.17.0.1:3306/demo2
+      MYSQL_USER: demo2
+    ports:
+      - "8080:8080"
+    expose:
+      - '8080'
+    volumes:
+      - "/home/mirjalalcloud/.m2:/root/.m2"
