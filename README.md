@@ -1,13 +1,9 @@
 # devops-demo2
 
-`sudo docker build -t mirjalalcloud/node-web-app`
-
-`sudo docker run -it -d -p 8080:8080 --name test mirjalalcloud/node-web-app`
-
 ### To-Do List
 
 - Subtask I - Application
-    * [ ] Add `docker` folder and put there all Dockerfiles and docker-related scripts if any, then commit and push them in your Gitlab repo.
+    * [x] Add `docker` folder and put there all Dockerfiles and docker-related scripts if any, then commit and push them in your Gitlab repo.
     * [x] Install `docker` on your host machine
     * [x] Create `Dockerfile` for application container
     * docker build should:
