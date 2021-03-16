@@ -30,8 +30,8 @@ services:
       MYSQL_URL: jdbc:mysql://172.17.0.1:3306/demo2
       MYSQL_USER: demo2
     ports:
-      - "8080:8080"
+      - "8083:8080"
     expose:
-      - '8080'
+      - '8083'
     volumes:
       - "/home/mirjalalcloud/.m2:/root/.m2"

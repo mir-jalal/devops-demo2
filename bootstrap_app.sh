@@ -10,6 +10,7 @@ cd ./spring-petclinic || exit
 
 chmod +x mvnw
 
-./mvnw clean package
+./mvnw clean
+./mvnw package
 
 
