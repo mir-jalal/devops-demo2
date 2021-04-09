@@ -1,0 +1,74 @@
+- hosts: localhost
+  remote_user: ubuntu
+  become: true
+  vars_files:
+    - vault.yml
+
+  tasks:
+    - name: Build db Dockerfile
+      docker_image:
+        build:
+          pull: yes
+          path: ./docker-db
+        name: petclinic-db
+        source: build
+
+
+    - name: Run db docker container
+      docker_container:
+        name: petclinic-db
+        image: petclinic-db
+        exposed_ports:
+          - "3306"
+        ports:
+          - "3306:3306"
+        env:
+          MYSQL_DATABASE: "{{ mysql_database }}"
+          MYSQL_USER: "{{ mysql_user }}"
+          MYSQL_PASSWORD: "{{ mysql_pass }}"
+          MYSQL_ROOT_PASSWORD: "{{ mysql_root_pass }}"
+        volumes:
+          - /home/mirjalalcloud/db:/var/lib/mysql
+
+    - name: Build builder app Dockerfile
+      docker_image:
+        build:
+          pull: yes
+          path: ./build
+          args:
+            BUILD_BRANCH: 'master'
+        name: petclinic
+        tag: alpha
+        source: build
+
+    - name: Run builder app docker container
+      docker_container:
+        name: petclinic-app
+        image: petclinic:alpha
+        detach: false
+        auto_remove: true
+        volumes:
+          - ./app/target:/spring-petclinic/target
+          - ./m2:/root/.m2
+
+    - name: Build runner app Dockerfile
+      docker_image:
+        build:
+          pull: yes
+          path: ./app
+        name: petclinic-app
+        source: build
+
+    - name: Run runner app docker container
+      docker_container:
+        name: petclinic-app
+        image: petclinic-app
+        restart_policy: on-failure
+        exposed_ports:
+          - "8080"
+        ports:
+          - "8089:8080"
+        env:
+          MYSQL_PASS: "{{ mysql_pass }}"
+          MYSQL_URL: "jdbc:mysql://172.17.0.1:3306/{{ mysql_database }}"
+          MYSQL_USER: "{{ mysql_user }}"
