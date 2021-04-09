@@ -13,7 +13,10 @@
         name: petclinic-db
         source: build
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7060256c06ef5ccd73e61f40357fb2c1f9432e09
     - name: Run db docker container
       docker_container:
         name: petclinic-db
@@ -27,6 +30,7 @@
           MYSQL_USER: "{{ mysql_user }}"
           MYSQL_PASSWORD: "{{ mysql_pass }}"
           MYSQL_ROOT_PASSWORD: "{{ mysql_root_pass }}"
+<<<<<<< HEAD
         volumes:
           - /home/mirjalalcloud/db:/var/lib/mysql
 
@@ -60,6 +64,21 @@
         source: build
 
     - name: Run runner app docker container
+=======
+
+        volumes:
+          - /home/mirjalalcloud/db:/var/lib/mysql
+
+    - name: Build app Dockerfile
+      docker_image:
+        build:
+          pull: yes
+          path: ./docker-app
+        name: petclinic-app
+        source: build
+
+    - name: Run app docker container
+>>>>>>> 7060256c06ef5ccd73e61f40357fb2c1f9432e09
       docker_container:
         name: petclinic-app
         image: petclinic-app
@@ -70,5 +89,9 @@
           - "8089:8080"
         env:
           MYSQL_PASS: "{{ mysql_pass }}"
+<<<<<<< HEAD
           MYSQL_URL: "jdbc:mysql://172.17.0.1:3306/{{ mysql_database }}"
+=======
+          MYSQL_URL: "jdbc:mysql://mysql:3306/{{ mysql_database }}"
+>>>>>>> 7060256c06ef5ccd73e61f40357fb2c1f9432e09
           MYSQL_USER: "{{ mysql_user }}"

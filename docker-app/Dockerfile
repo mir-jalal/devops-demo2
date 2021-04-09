@@ -24,10 +24,6 @@ WORKDIR /app/
 
 COPY --from=builder /src/target/spring-petclinic-*.jar ./app.jar
 
-ENV MYSQL_PASS "B*T_ity6"
-ENV MYSQL_URL "jdbc:mysql://172.17.0.1:3306/demo2"
-ENV MYSQL_USER "demo2"
-
 EXPOSE 8080
 
 CMD ["java", "-jar", "-Dspring.profiles.active=mysql", "app.jar"]

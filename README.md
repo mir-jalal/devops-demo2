@@ -36,6 +36,7 @@ ___
   > To get more detailed documentation you may look at:
   > [Docker - Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
 
+<<<<<<< HEAD
 - As it is not possible to mount volume on build, I used two Dockerfiles, one for build the package, and the another for running that application.
 
   Following `Dockerfile` installs openjdk and builds java project with `mvnw` script:
@@ -70,6 +71,33 @@ ___
   ADD /target/spring-petclinic-*.jar /petclinic/app/app.jar
 
   WORKDIR /petclinic/app
+=======
+- As it is not possible to mount volume, I used multistage dockerfile to keep image size less and use cache.
+
+  Following part of `Dockerfile` installs openjdk and builds java project with `mvnw` script:
+  <pre>
+  FROM alpine:3.7 AS builder
+  RUN apk --no-cache add openjdk8
+  ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk
+  WORKDIR /src/
+
+  COPY /spring-petclinic .
+
+  RUN ./mvnw package
+  </pre>
+
+  Then following part of the Dockerfile puts application jar into separate folder and exposes 8080 port:
+
+  <pre>
+  FROM alpine:3.7
+
+  RUN apk --no-cache add openjdk8
+  ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk
+
+  WORKDIR /app/
+
+  COPY --from=builder /src/target/spring-petclinic-*.jar ./app.jar
+>>>>>>> 7060256c06ef5ccd73e61f40357fb2c1f9432e09
 
   EXPOSE 8080
 
@@ -78,11 +106,16 @@ ___
 
 - Following docker command can be used to build and tag an image:
 
+<<<<<<< HEAD
   `docker build -t petclinic:build ./build`
+=======
+  `docker build -t petclinic-app ./petclinic-app`
+>>>>>>> 7060256c06ef5ccd73e61f40357fb2c1f9432e09
   > However, there is ansible playbook in the project that tags all the images and runs containers
 
 - Following docker command can be used to run the container:
 
+<<<<<<< HEAD
   `docker run -d petclinic:build`
 
 - After building, running the docker container, we will have `.jar` file to run inside the app container.
@@ -93,6 +126,9 @@ ___
   `docker run -p 8089:8080 petclinic-app`
   
   > I recommend you to use ansible-playbook because there are more configuration properties inside it.
+=======
+  `docker run -d -p 8089:8080 petclinic-app`
+>>>>>>> 7060256c06ef5ccd73e61f40357fb2c1f9432e09
 
 ## Subtask II - Database
 - For the Database container, following variables encrypted with ansible-vault are used in ansible-playbook to create non-root user, password, and database.
@@ -413,7 +449,10 @@ ___
   </pre>
 
   > You can find additional information at `https://your.jenkins.installation/plugin/job-dsl/api-viewer/index.html`
+<<<<<<< HEAD
   
+=======
+>>>>>>> 7060256c06ef5ccd73e61f40357fb2c1f9432e09
 
 ### To-Do List
 
