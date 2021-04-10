@@ -1,4 +1,5 @@
-/.idea
+/.idea/
 /.dockerignore
-/.git
-
+/.git/
+/app/target/
+/m2/
