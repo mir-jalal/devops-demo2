@@ -422,7 +422,7 @@ ___
   * [x] Install `docker` on your host machine
   * [x] Create `Dockerfile` for application container
   * docker build should:
-    * [ ] Clone git project and checkout to branch specified in `$BUILD_BRANCH`
+    * [x] Clone git project and checkout to branch specified in `$BUILD_BRANCH`
     * [x] Use `.m2` dir from host machine
     * [x] Build java project
     * [x] Put application jar into separate folder

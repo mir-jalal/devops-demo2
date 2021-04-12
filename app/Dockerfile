@@ -2,13 +2,15 @@
 
 FROM alpine:3.7
 
-RUN apk --no-cache add openjdk8
-
 ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk
 
-ADD /target/spring-petclinic-*.jar /petclinic/app/app.jar
+WORKDIR /home/petclinic/app
 
-WORKDIR /petclinic/app
+RUN apk --no-cache add openjdk8 && addgroup appgroup && adduser -h /home/petclinic/ -G appgroup -D petclinic
+
+USER petclinic
+
+ADD /target/spring-petclinic-*.jar ./app.jar
 
 EXPOSE 8080
 

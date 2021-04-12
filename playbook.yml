@@ -27,6 +27,7 @@
           MYSQL_USER: "{{ mysql_user }}"
           MYSQL_PASSWORD: "{{ mysql_pass }}"
           MYSQL_ROOT_PASSWORD: "{{ mysql_root_pass }}"
+          MYSQL_ROOT_HOST: "172.17.0.0/16"
         volumes:
           - /home/mirjalalcloud/db:/var/lib/mysql
 
