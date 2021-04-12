@@ -426,14 +426,14 @@ ___
     * [x] Use `.m2` dir from host machine
     * [x] Build java project
     * [x] Put application jar into separate folder
-    * [ ] Have a separate non-root user to own the application
+    * [x] Have a separate non-root user to own the application
     * [x] Expose the 8080 port
     * [x] Tag image as `petclinic-app`
   * [x] on docker run it should start java app and connect to mysql database using credentials that you provide in environment variables.
 
 - Subtask II - Database
   * Create Dockerfile for DB container
-    * [ ] Customize the mysql database to accept connections only from your private docker network subnet
+    * [x] Customize the mysql database to accept connections only from your private docker network subnet
     * [x] Create a non-root user and password (ENV $MYSQL_USER and $MYSQL_PASSWORD) in mysql
     * [x] Create a database in mysql (ENV $MYSQL_DATABASE) and grant all privileges for the $MYSQL_USER to access the database
     * [x] Expose default mysql port

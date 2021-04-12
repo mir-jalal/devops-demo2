@@ -1,0 +1,1 @@
+git clone https://github.com/mir-jalal/spring-petclinic.git && cd ./spring-petclinic && git checkout "$BUILD_BRANCH"
