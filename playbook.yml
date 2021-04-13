@@ -27,7 +27,7 @@
           MYSQL_USER: "{{ mysql_user }}"
           MYSQL_PASSWORD: "{{ mysql_pass }}"
           MYSQL_ROOT_PASSWORD: "{{ mysql_root_pass }}"
-          MYSQL_ROOT_HOST: "172.17.0.0/16"
+          MYSQL_ROOT_HOST: "{{ mysql_root_host }}"
         volumes:
           - /home/mirjalalcloud/db:/var/lib/mysql
 
@@ -37,7 +37,7 @@
           pull: yes
           path: ./build
           args:
-            BUILD_BRANCH: 'master'
+            BUILD_BRANCH: 'main'
         name: petclinic
         tag: alpha
         source: build
@@ -47,6 +47,9 @@
         name: petclinic-app
         image: petclinic:alpha
         detach: false
+        env:
+          GIT_ACCESS_TOKEN: "{{ git_access_token }}"
+          GIT_USER: "{{ git_user }}"
         volumes:
           - ./app/target:/spring-petclinic/target
           - ./m2:/root/.m2
