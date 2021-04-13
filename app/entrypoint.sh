@@ -1,1 +1,0 @@
-java -jar -Dspring.profiles.active=mysql app.jar

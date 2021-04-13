@@ -51,7 +51,6 @@ ___
   COPY *.sh /
 
   ENTRYPOINT /entrypoint.sh
-
   </pre>
 
   Then following `Dockerfile` puts application jar into separate folder, run the application, and exposes 8080 port:
@@ -75,7 +74,6 @@ ___
   EXPOSE 8080
 
   ENTRYPOINT /entrypoint.sh
-
   </pre>
 
 - Following docker command can be used to build and tag an image:

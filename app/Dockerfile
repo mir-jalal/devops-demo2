@@ -11,8 +11,7 @@ RUN apk --no-cache add openjdk8 && addgroup appgroup && adduser -h /home/petclin
 USER petclinic
 
 COPY /target/spring-petclinic-*.jar ./app.jar
-COPY *.sh /
 
 EXPOSE 8080
 
-ENTRYPOINT /entrypoint.sh
+ENTRYPOINT java -jar -Dspring.profiles.active=mysql app.jar
