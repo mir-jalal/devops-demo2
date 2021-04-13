@@ -48,9 +48,8 @@ ___
 
   RUN apk --no-cache add openjdk8 && apk --no-cache add git
 
-  COPY *.sh /
+  CMD /startup.sh
 
-  ENTRYPOINT /entrypoint.sh
   </pre>
 
   Then following `Dockerfile` puts application jar into separate folder, run the application, and exposes 8080 port:
@@ -69,11 +68,10 @@ ___
   USER petclinic
 
   COPY /target/spring-petclinic-*.jar ./app.jar
-  COPY *.sh /
 
   EXPOSE 8080
 
-  ENTRYPOINT /entrypoint.sh
+  ENTRYPOINT java -jar -Dspring.profiles.active=mysql app.jar
   </pre>
 
 - Following docker command can be used to build and tag an image:
