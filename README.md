@@ -44,16 +44,14 @@ ___
 
   FROM alpine:3.7
 
-  RUN apk --no-cache add openjdk8 && apk --no-cache add git
   ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk
 
-  RUN git clone https://github.com/mir-jalal/spring-petclinic.git
+  RUN apk --no-cache add openjdk8 && apk --no-cache add git
 
-  WORKDIR /spring-petclinic
+  COPY *.sh /
 
-  RUN git checkout $BUILD_BRANCH
+  ENTRYPOINT /entrypoint.sh
 
-  CMD ["./mvnw", "package"]
   </pre>
 
   Then following `Dockerfile` puts application jar into separate folder, run the application, and exposes 8080 port:
@@ -63,17 +61,21 @@ ___
 
   FROM alpine:3.7
 
-  RUN apk --no-cache add openjdk8
-
   ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk
 
-  ADD /target/spring-petclinic-*.jar /petclinic/app/app.jar
+  WORKDIR /home/petclinic/app
 
-  WORKDIR /petclinic/app
+  RUN apk --no-cache add openjdk8 && addgroup appgroup && adduser -h /home/petclinic/ -G appgroup -D petclinic
+
+  USER petclinic
+
+  COPY /target/spring-petclinic-*.jar ./app.jar
+  COPY *.sh /
 
   EXPOSE 8080
 
-  CMD ["java", "-jar", "-Dspring.profiles.active=mysql", "app.jar"]
+  ENTRYPOINT /entrypoint.sh
+
   </pre>
 
 - Following docker command can be used to build and tag an image:
