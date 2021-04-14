@@ -6,4 +6,4 @@ ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk
 
 RUN apk --no-cache add openjdk8 && apk --no-cache add git
 
-CMD /startup.sh
+CMD sh /startup.sh
