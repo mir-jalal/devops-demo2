@@ -48,7 +48,7 @@ ___
 
   RUN apk --no-cache add openjdk8 && apk --no-cache add git
 
-  CMD /startup.sh
+  CMD sh /startup.sh
 
   </pre>
 
@@ -269,46 +269,8 @@ ___
   > You can also find more installation documentation of Jenkins for different machines (OS):
   > * [Jenkins - How to install Jenkins](https://www.jenkins.io/doc/book/installing/)
 
-- I used pipeline with two stage to build docker images and push them to the registry:
-    <pre>
-    #!/usr/bin/env groovy
-
-    pipeline{
-        environment {
-            registryDb = {registry_db}
-            registryApp = {registry_app}
-            registryIp = {registry_ip}:{registry_port}
-            registryUrl = "https://$registryIp"
-            registryCredentialsId = {credential_id_in_jenkins}
-        }
-
-        agent any
-
-        stages{
-            stage('Build and Push DB image'){
-                steps{
-                    script{
-                        docker.withRegistry(registryUrl, registryCredentialsId){
-                            sh("docker build -t ${registryIp + registryDb + ":$BUILD_NUMBER" + ' ./docker-db '}")
-                            sh("docker push ${registryIp + registryDb + ":$BUILD_NUMBER"}")
-                        }
-                    }
-                }
-            }
-
-            stage('Build and Push App image'){
-                steps{
-                    script{
-                        docker.withRegistry(registryUrl, registryCredentialsId){
-                            sh("docker build -t $registryIp$registryApp:$BUILD_NUMBER ./docker-app ")
-                            sh("docker push $registryIp$registryApp:$BUILD_NUMBER")
-                        }
-                    }
-                }
-            }
-        }
-    }
-  </pre>
+- I used pipeline with two stage to build docker images and push them to the registry.
+  Jenkins job will be triggered and pull the repo, so it can look for `Jenkinsfile`.    
 
 ## Additional Tasks
 - Own Docker Registry:
