@@ -77,8 +77,7 @@ ___
 - Following docker command can be used to build and tag an image:
 
   `docker build -t petclinic:build ./build`
-  > However, there is ansible playbook in the project that tags all the images and runs containers
-
+  
 - Following docker command can be used to run the container:
 
   `docker run -d petclinic:build`
@@ -89,9 +88,9 @@ ___
 
 - Then, we can run this container:
   `docker run -p 8089:8080 petclinic-app`
-
-  > I recommend you to use ansible-playbook because there are more configuration properties inside it.
-
+  
+  > The commands mentioned above are just for testing, so they can be not working, however you can look at `Jenkinsfile` or `playbook.yml` for additional configuration. 
+  
 ## Subtask II - Database
 - For the Database container, following variables encrypted with ansible-vault are used in ansible-playbook to create non-root user, password, and database.
   Vault.yml can be created by `ansible-vault create vault.yml`.
@@ -269,7 +268,7 @@ ___
   > You can also find more installation documentation of Jenkins for different machines (OS):
   > * [Jenkins - How to install Jenkins](https://www.jenkins.io/doc/book/installing/)
 
-- I used pipeline with two stage to build docker images and push them to the registry.
+- I used pipeline with several stages to build docker images and push them to the registry.
   Jenkins job will be triggered and pull the repo, so it can look for `Jenkinsfile`.    
 
 ## Additional Tasks
