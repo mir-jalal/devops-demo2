@@ -355,35 +355,35 @@ ___
         }
     }
 
-  parameters{
-    stringParam('registryDb', '/petclinic-db','')
-    stringParam('registryApp', '/petclinic-app','')
-    stringParam('registryIp', '34.123.224.226:5000','')
-    stringParam('registryUrl', 'https://34.123.224.226:5000','')
-    stringParam('registryCredentialsId', 'e1089ec1-6375-4f6a-97b1-998d5526ce2d','')
-    stringParam('dbTag', '$registryIp$registryDb:$BUILD_NUMBER','')
-    stringParam('dbDir', './docker-db','')
-    stringParam('buildTag', 'petclinic-app:alpha', '')
-    stringParam('buildDir', './build', '')
-    stringParam('appTag', '$registryIp$registryApp:$BUILD_NUMBER', '')
-    stringParam('appDir', './app', '')
-  }
+    parameters{
+      stringParam('registryDb', '/petclinic-db','')
+      stringParam('registryApp', '/petclinic-app','')
+      stringParam('registryIp', '34.123.224.226:5000','')
+      stringParam('registryUrl', 'https://34.123.224.226:5000','')
+      stringParam('registryCredentialsId', 'e1089ec1-6375-4f6a-97b1-998d5526ce2d','')
+      stringParam('dbTag', '$registryIp$registryDb:$BUILD_NUMBER','')
+      stringParam('dbDir', './docker-db','')
+      stringParam('buildTag', 'petclinic-app:alpha', '')
+      stringParam('buildDir', './build', '')
+      stringParam('appTag', '$registryIp$registryApp:$BUILD_NUMBER', '')
+      stringParam('appDir', './app', '')
+    }
 
 
-  definition {
-    cpsScm{
-      scm{
-        git {
-          remote{
-          	name('origin')
-          	url('http://root:cVyzjzne8H1Q3sdwvy6d@34.123.224.226/root/jenkins-test')
+    definition {
+      cpsScm{
+        scm{
+          git {
+            remote{
+              name('origin')
+              url('http://root:cVyzjzne8H1Q3sdwvy6d@34.123.224.226/root/jenkins-test')
+            }
           }
+          scriptPath("Jenkinsfile")
         }
-        scriptPath("Jenkinsfile")
       }
     }
   }
-}
   </pre>
 
   > You can find additional information at `https://your.jenkins.installation/plugin/job-dsl/api-viewer/index.html`
