@@ -1,22 +1,6 @@
 #!/usr/bin/env groovy
 
 pipeline{
-  environment {
-    registryDb = '/petclinic-db'
-    registryApp = '/petclinic-app'
-    registryIp = '34.123.224.226:5000'
-    registryUrl = "https://$registryIp"
-    registryCredentialsId = 'e1089ec1-6375-4f6a-97b1-998d5526ce2d'
-
-    dbTag = "$registryIp$registryDb:$BUILD_NUMBER"
-    dbDir = './docker-db'
-
-    buildTag = 'petclinic-app:alpha'
-    buildDir = './build'
-
-    appTag = "$registryIp$registryApp:$BUILD_NUMBER"
-    appDir = './app'
-  }
 
   agent {
     node {
