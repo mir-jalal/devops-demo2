@@ -3,3 +3,4 @@
 /.git/
 /app/target/
 /m2/
+/.env
